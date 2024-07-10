@@ -1,7 +1,13 @@
 package main
 
 import (
+	"log"
 	"os"
+
+	"github.com/gin-gonic/gin"
+	"github.com/jpuseche/ecommerce/controllers"
+	"github.com/jpuseche/ecommerce/middleware"
+	"github.com/jpuseche/ecommerce/routes"
 )
 
 func main() {
@@ -10,18 +16,18 @@ func main() {
 		port = "8000"
 	}
 
-	// app := controllers.NewApplication(database.ProductData(database.Client, "Products"), database.UserData(database.Client, "Users"))
+	app := controllers.NewApplication(database.ProductData(database.Client, "Products"), database.UserData(database.Client, "Users"))
 
-	// router := gin.New()
-	// router.Use(gin.Logger())
+	router := gin.New()
+	router.Use(gin.Logger())
 
-	// routes.UserRoutes(router)
-	// router.Use(middleware.Authentication())
+	routes.UserRoutes(router)
+	router.Use(middleware.Authentication())
 
-	// router.GET("/addtocart", app.AddToCart())
-	// router.GET("/removeitem", app.RemoveItem())
-	// router.GET("/cartcheckout", app.CartCheckout())
-	// router.GET("/instantbuy", app.InstantBuy())
+	router.GET("/addtocart", app.AddToCart())
+	router.GET("/removeitem", app.RemoveItem())
+	router.GET("/cartcheckout", app.CartCheckout())
+	router.GET("/instantbuy", app.InstantBuy())
 
-	// log.Fatal(router.Run(":" + port))
+	log.Fatal(router.Run(":" + port))
 }
