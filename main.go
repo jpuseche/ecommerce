@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jpuseche/ecommerce/controllers"
+	"github.com/jpuseche/ecommerce/database"
 	"github.com/jpuseche/ecommerce/middleware"
 	"github.com/jpuseche/ecommerce/routes"
 )
@@ -16,7 +17,7 @@ func main() {
 		port = "8000"
 	}
 
-	app := controllers.NewApplication(database.ProductData(database.Client, "Products"), database.UserData(database.Client, "Users"))
+	app := controllers.NewApplication(database.CollectionData(database.Client, "Products"), database.CollectionData(database.Client, "Users"))
 
 	router := gin.New()
 	router.Use(gin.Logger())

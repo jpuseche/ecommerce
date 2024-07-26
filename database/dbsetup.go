@@ -40,10 +40,9 @@ func DBSetup() *mongo.Client {
 	return client
 }
 
-func UserData(client *mongo.Client, collectionName string) *mongo.Collection {
+func CollectionData(client *mongo.Client, collectionName string) *mongo.Collection {
+	collection := &mongo.Collection{}
+	collection = client.Database("Ecommerce").Collection(collectionName)
 
-}
-
-func ProductData(client *mongo.Client, collectionName string) *mongo.Collection {
-
+	return collection
 }
